@@ -1,0 +1,14 @@
+managed1
+
+[webserver]
+managed2
+
+[db]
+managed3
+
+[balancing]
+managed4
+
+[web:children]
+webserver
+db

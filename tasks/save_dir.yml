@@ -1,0 +1,9 @@
+- name: Ambil hari, bulan, dan tahun
+  command: date +%Y-%m-%d
+  register: date_info
+
+- name: Buat direktori
+  file:
+    path: /home/student/maintenace_report_{{ date_info.stdout }}
+    state: directory
+

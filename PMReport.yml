@@ -1,0 +1,17 @@
+---
+- name: Daftar Laporan Maintenance
+  hosts: all
+  roles:
+    - preventive_maintenance
+
+- name: Buat Direktori
+  hosts: localhost
+  tasks:
+    - name: Buat direktori
+      include_tasks: save_dir.yml
+
+- name: Ambil File
+  hosts: all
+  tasks:
+    - name: Ambil dan simpan file
+      include_tasks: fetch_file.yml

@@ -1,0 +1,4 @@
+---
+# defaults file for roles/preventive_maintenance
+
+pathfile: /home/student/maintenace_report_item_{{ inventory_hostname }}.txt

@@ -1,0 +1,45 @@
+---
+# tasks file for roles/preventive_maintenance
+- name: Buat file
+  file:
+    path: "{{ pathfile }}"
+    state: touch
+
+- name: Dapatkan Hostname
+  command: hostname
+  register: hostname_info
+
+- name: Dapatkan FQDN
+  command: hostname -f
+  register: fqdn_info
+  ignore_errors: yes
+
+- name: Cek Konfigurasi FQDN
+  set_fact:
+    fqdn_dikonfigurasi: "{{ fqdn_info.rc == 0 and fqdn_info.stdout != '' }}"
+
+- name: Dapatkan Uptime
+  command: uptime
+  register: uptime_info
+
+- name: Dapatkan Penggunaan Memori
+  command: free -h
+  register: memory_info
+
+- name: Dapatkan Versi Kernel
+  command: uname -sr
+  register: kernel_info
+
+- name: Periksa kapasitas disk
+  command: lsblk -o NAME,SIZE,TYPE -dn
+  register: disksize_info
+
+- name: Dapatkan Penggunaan Disk
+  command: df -h
+  register: disk_info
+
+- name: Tulis Informasi
+  template:
+    src: templates/report_item.j2
+    dest: "{{ pathfile }}"
+

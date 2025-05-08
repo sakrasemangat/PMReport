@@ -1,0 +1,10 @@
+- name: Ambil hari, bulan, dan tahun
+  command: date +%Y-%m-%d
+  register: date_info
+
+- name: Ambil file dari manage hosts ke controller
+  fetch:
+    src: /home/student/maintenace_report_item_{{ inventory_hostname }}.txt
+    dest: /home/student/maintenace_report_{{ date_info.stdout }}/
+    flat: yes
+
